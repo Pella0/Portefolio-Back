@@ -79,4 +79,17 @@ app.get('/projets/:id', (req, res) => {
   );
 });
 
+app.get('/projets', (req, res) => {
+  const projets = req.body;
+  connection.query('SELECT * FROM projets', [projets], (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('An error occurred to display all projects');
+    } else {
+      console.log('results', results);
+      res.status(200).json(results);
+    }
+  });
+});
+
 app.listen(5000, () => console.log('server listening on port 5000'));
