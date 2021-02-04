@@ -92,4 +92,64 @@ app.get('/projets', (req, res) => {
   });
 });
 
+app.post('/admin/projets', (req, res) => {
+  const {
+    Name,
+    Logo,
+    Client_Description,
+    Projet_Description,
+    Methode,
+    Details_Client,
+    Lien_Client,
+    Techno_id,
+    Client_name,
+    screen1,
+    screen2,
+    screen3,
+    screen4,
+    date,
+    projet_context,
+  } = req.body;
+  connection.query(
+    'INSERT INTO projets (Name, Logo, Client_Description, Projet_Description, Methode, Details_Client, Lien_Client, Techno_id, Client_name, screen1, screen2, screen3, screen4, date, projet_context) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [
+      Name,
+      Logo,
+      Client_Description,
+      Projet_Description,
+      Methode,
+      Details_Client,
+      Lien_Client,
+      Techno_id,
+      Client_name,
+      screen1,
+      screen2,
+      screen3,
+      screen4,
+      date,
+      projet_context,
+    ],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('An error occurred to add a new project');
+      } else {
+        res.status(200).json(results);
+      }
+    }
+  );
+});
+
+app.delete('/admin/projets/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('DELETE from projets WHERE id = ?', [id], (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erreur lors de la suppression d'un Projets");
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
 app.listen(5000, () => console.log('server listening on port 5000'));
