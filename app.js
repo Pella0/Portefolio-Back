@@ -152,4 +152,16 @@ app.delete('/admin/projets/:id', (req, res) => {
   });
 });
 
+app.get('/Techno', (req, res) => {
+  connection.query('SELECT * FROM Techno', (err, results) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('An error occurred to display all Techno');
+    } else {
+      console.log('results', results);
+      res.status(200).json(results);
+    }
+  });
+});
+
 app.listen(5000, () => console.log('server listening on port 5000'));
