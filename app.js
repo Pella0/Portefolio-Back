@@ -94,7 +94,7 @@ app.get('/projets', (req, res) => {
 
 app.post('/admin/projets', (req, res) => {
   const {
-    Name,
+    title,
     Logo,
     Client_Description,
     Projet_Description,
@@ -111,9 +111,9 @@ app.post('/admin/projets', (req, res) => {
     projet_context,
   } = req.body;
   connection.query(
-    'INSERT INTO projets (Name, Logo, Client_Description, Projet_Description, Methode, Details_Client, Lien_Client, Techno_id, Client_name, screen1, screen2, screen3, screen4, date, projet_context) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    'INSERT INTO projets (title, Logo, Client_Description, Projet_Description, Methode, Details_Client, Lien_Client, Techno_id, Client_name, screen1, screen2, screen3, screen4, date, projet_context) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [
-      Name,
+      title,
       Logo,
       Client_Description,
       Projet_Description,
@@ -152,7 +152,7 @@ app.delete('/admin/projets/:id', (req, res) => {
   });
 });
 
-app.get('/Techno', (req, res) => {
+/* app.get('/Techno', (req, res) => {
   connection.query('SELECT * FROM Techno', (err, results) => {
     if (err) {
       console.log(err);
@@ -162,6 +162,6 @@ app.get('/Techno', (req, res) => {
       res.status(200).json(results);
     }
   });
-});
+}); */
 
 app.listen(5000, () => console.log('server listening on port 5000'));
